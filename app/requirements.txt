@@ -1,0 +1,6 @@
+flask
+gunicorn
+pandas
+psycopg2-binary
+sqlalchemy
+sqlalchemy.orm
