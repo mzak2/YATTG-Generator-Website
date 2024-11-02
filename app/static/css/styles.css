@@ -184,4 +184,9 @@ details[open] summary {
     .main {
         order: 1;
     }
+
+    .dice {
+        display: none;
+    }
 }
+

@@ -34,7 +34,7 @@ app = Flask(__name__)
 
 # ------------Start Program
 db_url = os.environ.get('DB_URL') #connects to the docker version
-#db_url = "" #get from docker file for testing
+#db_url = os.environ.get('db_url') #used for local testing, use other for docker
 engine = create_engine(f"{db_url}")
 Session = sessionmaker(bind=engine)
 session = Session()
