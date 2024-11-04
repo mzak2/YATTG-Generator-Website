@@ -33,7 +33,7 @@ from database.string_templates import townEventString, magicItemString, potionsS
 app = Flask(__name__)
 
 # ------------Start Program
-db_url = os.environ.get('DB_URL') #connects to the docker version
+db_url = os.environ.get('DB_URL') #connects to the docker version for deployment
 #db_url = os.environ.get('db_url') #used for local testing, use other for docker
 engine = create_engine(f"{db_url}")
 Session = sessionmaker(bind=engine)
