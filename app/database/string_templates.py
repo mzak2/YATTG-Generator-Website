@@ -126,6 +126,18 @@ def potionsString(df):
     return result_str
 
 
+def shopString(df):
+    row = df.iloc[0]
+
+    result_str = (
+        f"Before you is a/an:\n---{row['adjective']} {row['shop']}\n" +
+        f"Who's Architecture is:\n---{row['architecture']} and made of {row['material']}\n" +
+        f"Inside are 5 interesting items:\n---{row['item_1']}\n---{row['item_2']}\n---{row['item_3']}\n---{row['item_4']}\n---{row['item_5']}"
+    )
+
+    return result_str
+
+
 def setbackString(df):
     row = df.iloc[0]
 

@@ -240,6 +240,41 @@ def rollPotions(session, table):
     finally:
         session.close()
 
+
+def rollShop(session, table):
+    try:
+        shop = rollTable(session, table)
+        material = rollTable(session, "materials")
+        architecture = rollTable(session, "architecture")
+        adjective = rollTable(session, "adjectives")
+
+        item_1 = rollTable(session, "items")
+        item_2 = rollTable(session, "items")
+        item_3 = rollTable(session, "items")
+        item_4 = rollTable(session, "items")
+        item_5 = rollTable(session, "items")
+
+        result_df = pd.DataFrame({
+            "shop": [shop.iloc[0, 1]],
+            "architecture": [architecture.iloc[0, 1]],
+            "adjective": [adjective.iloc[0, 1]],
+            "material": [material.iloc[0, 1]],
+            "item_1": [item_1.iloc[0, 1]],
+            "item_2": [item_2.iloc[0, 1]],
+            "item_3": [item_3.iloc[0, 1]],
+            "item_4": [item_4.iloc[0, 1]],
+            "item_5": [item_5.iloc[0, 1]]
+        })
+
+        return result_df
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+    finally:
+        session.close()
+
+
 # table is called "events"
 def rollTownEvent(session, table):
     try:
@@ -289,7 +324,7 @@ def rollWilderness(session, table):
             "item_2": [item_2.iloc[0, 1]],
             "item_3": [item_3.iloc[0, 1]],
             "item_4": [item_4.iloc[0, 1]],
-            "item_5": [item_5.iloc[0, 1]],
+            "item_5": [item_5.iloc[0, 1]]
         })
 
         return result_df
@@ -324,7 +359,7 @@ def getEnumDF(session, choice):
         "19": "dungeonroom_types", # removed
         "20": "priests",
         "21": "npcs",
-        "22": "villagers", # removed
+        "22": "shops",
         "23": "blessings",
         "24": "curses",
         "25": "divinations",
@@ -344,6 +379,8 @@ def getEnumDF(session, choice):
     # logic to select the correct output based on categories or specific tables:
     if choice_num == 4:
         return rollTownEvent(session, table)
+    elif choice_num == 22:
+        return rollShop(session, table)
     elif choice_num == 25:
         return rollDivination(session, table)
     elif choice_num == 26:
