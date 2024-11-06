@@ -59,6 +59,7 @@
                 <div id="result-container">
                     <h2>Result:</h2>
                     <textarea id="result-json" readonly></textarea><!--results from /roll-->
+                    <button id="reroll-btn" style="display:none;">Reroll</button>
                 </div>
                 <div id="result-df" style="margin-top:100px;">
                     <h2>Result-Table:</h2>
@@ -104,17 +105,35 @@
 
     <script>
         $(document).ready(function () {
+            var lastCategoryId = null;  // To store the last clicked category ID
+
             $(".roll-btn").click(function () {
-                var categoryId = $(this).data("category-id");
+                lastCategoryId = $(this).data("category-id");  // Store the category ID
+
+                rollCategory(lastCategoryId);
+
+                // show the reroll button after the first roll
+                $("#reroll-btn").show();
+            });
+
+            $("#reroll-btn").click(function () {
+                if (lastCategoryId) {
+                    // Perform the roll using the stored category ID
+                    rollCategory(lastCategoryId);
+                }
+            });
+
+            // function to roll based on category ID
+            function rollCategory(categoryId) {
                 $.ajax({
                     url: "/roll",
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify({ "category_id": categoryId }),
                     success: function (response) {
-                        // Show the JSON result in the textbox
+                        // show the JSON result in the textbox
                         $("#result-json").text(response.result_string);
-                        // Show the DataFrame as an HTML table
+                        // show the DataFrame as an HTML table
                         $("#result-table").html(response.result_df);
                     },
                     error: function () {
@@ -122,7 +141,7 @@
                         $("#result-table").html("Error rolling the table.");
                     }
                 });
-            });
+            }
         });
     </script>
 </body>
