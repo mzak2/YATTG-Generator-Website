@@ -8,6 +8,13 @@ body {
     background-size: 8px;
 }
 
+    h6 {
+        text-align: center;
+        padding: 2px;
+        margin-bottom: 5px;
+        font-size: 32px;
+    }
+
 li {
     list-style: none;
     padding-left: 0%;
@@ -19,10 +26,23 @@ ul {
 
 button {
     margin: 1px;
+    margin-left: 10%;
     padding: 5px 5px;
     font-size: 14px;
     cursor: pointer;
     background-color: Grey;
+    color: White;
+    border: none;
+    border-radius: 3px;
+}
+
+.category-button {
+    margin: 1px;
+    margin-left: 10%;
+    padding: 5px 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: RGB(20,20,40);
     color: White;
     border: none;
     border-radius: 3px;
@@ -60,7 +80,7 @@ td, th {
 
 .wrapper {
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
     min-height: 100vh;
 }
 
@@ -114,6 +134,7 @@ details[open] summary {
     margin-left: 0;
     margin-right: 10%;
     list-style-type: none;
+    max-width: 75%;
 }
 
 #category-list::-webkit-scrollbar {
@@ -220,18 +241,72 @@ details[open] summary {
     padding: 10px;
 }
 
-
-@media (max-width: 800px) {
+@media (max-width: 1200px){
     .content {
-        flex-direction: column;
+        max-width: 300px;
     }
 
-    .aside-1, .aside-2 {
-        text-align: center;
+    .aside-2, #result-df {
+        display: none;
+    }
+
+    .aside-1 {
+        text-align: left;
+        padding: 0px;
+        max-width: 300px;
     }
 
     .main {
         order: 1;
+        max-width: 500px;
+    }
+
+    #result-container {
+        margin-top: 0px;
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 800px) {
+    .content {
+        margin-left: 10%;
+    }
+
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .aside-1 {
+        text-align: center;
+        padding: 0px;
+    }
+
+    .aside-2 {
+        display: none;
+    }
+
+    h6 {
+        text-align: center;
+        padding: 2px;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .main {
+        order: 1;
+    }
+
+    .footer {
+        font-weight: bold;
+        font-size: 12px;
+        text-align: center;
+        margin: 0px 5px 5px 5px;
+        padding: 5px;
     }
 
     .dice, #result-df {
@@ -269,7 +344,8 @@ details[open] summary {
         margin-left: 0px;
         margin-right: 10%;
         padding-left: 0px;
-        max-height: 175px;
+        max-height: 200px;
+        max-width: 100%;
     }
 
     #result-container {

@@ -8,52 +8,53 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <div class="header">
+        <h1 style="font-size:72px; margin-bottom: 0px;">YATTG</h1>
+        <h6 style="margin-bottom: 0px; margin-top: 0px;">(Yet Another Table-Top Generator)</h6>
+        <details class="about">
+            <summary><span class="about-box" style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">About:</span></summary>
+            <p>Y.A.T.T.G. (Yet Another Table Top generator) created by Mark Z is a Dungeons and Dragons 5e
+                based random generator. My continual goal is to create a more random set of tables than the D.M.G,
+                ChatGPT, and other generator sites like this one. I found many generators were not random enough,
+                and after clicking a few times, you'd get almost exactly the same roll. So I decided that Y.A.T.T.G.
+                will have a minimum of 500 possibilities that fit a fantasy world. Sadly not all are there yet, but
+                there will be continuous updates with new tables to roll and additional outcomes. I hope you enjoy
+                my 5 years of effort and that it brings joy to your own TTRPGs like it does for mine!<br><br>
+
+                Support me by donating at Ko-Fi or Patreon:<br>
+                <a href="https://www.ko-fi.com/markz89761">Ko-Fi</a><br>
+                <a href="https://www.patreon.com/YATTG">Patreon</a><br>
+            </p>
+        </details>
+    </div>
     <div class="wrapper">
-        <div class="header">
-            <h1 style="font-size:72px; margin-bottom: 0px;">YATTG</h1>
-            <h6 style="font-size:40px; margin-bottom: 0px; margin-top: 0px;">(Yet Another Table-Top Generator)</h6>
-            <details class="about">
-                <summary><span class="about-box" style="border: 1px solid black; padding: 5px; margin-bottom: 10px;">About:</span></summary>
-                <p>Y.A.T.T.G. (Yet Another Table Top generator) created by Mark Z is a Dungeons and Dragons 5e
-                    based random generator. My continual goal is to create a more random set of tables than the D.M.G,
-                    ChatGPT, and other generator sites like this one. I found many generators were not random enough,
-                    and after clicking a few times, you'd get almost exactly the same roll. So I decided that Y.A.T.T.G.
-                    will have a minimum of 500 possibilities that fit a fantasy world. Sadly not all are there yet, but
-                    there will be continuous updates with new tables to roll and additional outcomes. I hope you enjoy
-                    my 5 years of effort and that it brings joy to your own TTRPGs like it does for mine!<br><br>
-
-                    Support me by donating at Ko-Fi or Patreon:<br>
-                    <a href="https://www.ko-fi.com/markz89761">Ko-Fi</a><br>
-                    <a href="https://www.patreon.com/YATTG">Patreon</a><br>
-                </p>
-            </details>
-        </div>
-
         <div class="content">
             <div class="aside-1">
                 <div id="category-container">
-                    <h2>Select a Category to Roll</h2>
+                    <h2 style="margin-top: 12px; margin-left: 5%;">Select a Category to Roll</h2>
                     <ul id="category-list">
-                        <!-- Flask will populate this list with categories and subcategories -->
                         {% for category in menu %}
                         <li>
-                            <strong>{{ category['category_name'] }}</strong>
-                            {% if category.subcategories %}
-                            <ul>
-                                {% for subcategory in category.subcategories %}
-                                <li>
-                                    <button class="roll-btn" data-category-id="{{ subcategory['id'] }}">
-                                        {{ subcategory['name'] }}
-                                    </button>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
+                            <details>
+                                <summary class="category-button"><strong>{{ category['category_name'] }}</strong></summary>
+                                {% if category.subcategories %}
+                                <ul>
+                                    {% for subcategory in category.subcategories %}
+                                    <li>
+                                        <button class="roll-btn" data-category-id="{{ subcategory['id'] }}">
+                                            {{ subcategory['name'] }}
+                                        </button>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </details>
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
+        </div>
 
             <div class="main">
                 <div id="result-container">
