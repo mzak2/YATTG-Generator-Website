@@ -27,81 +27,80 @@
             </p>
         </details>
     </div>
-    <div class="wrapper">
-        <div class="content">
-            <div class="aside-1">
-                <div id="category-container">
-                    <h2 style="margin-top: 12px; margin-left: 5%;">Select a Category to Roll</h2>
-                    <ul id="category-list">
-                        {% for category in menu %}
-                        <li>
-                            <details>
-                                <summary class="category-button"><strong>{{ category['category_name'] }}</strong></summary>
-                                {% if category.subcategories %}
-                                <ul>
-                                    {% for subcategory in category.subcategories %}
-                                    <li>
-                                        <button class="roll-btn" data-category-id="{{ subcategory['id'] }}">
-                                            {{ subcategory['name'] }}
-                                        </button>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
-                            </details>
-                        </li>
-                        {% endfor %}
-                    </ul>
+
+    <div class="content">
+        <div class="aside-1">
+            <div id="category-container">
+                <h2>Select a Category to Roll</h2>
+                <ul id="category-list">
+                    {% for category in menu %}
+                    <li>
+                        <details>
+                            <summary class="category-button"><strong>{{ category['category_name'] }}</strong></summary>
+                            {% if category.subcategories %}
+                            <ul>
+                                {% for subcategory in category.subcategories %}
+                                <li>
+                                    <button class="roll-btn" data-category-id="{{ subcategory['id'] }}">
+                                        {{ subcategory['name'] }}
+                                    </button>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </details>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="main">
+            <div id="result-container">
+                <h2>Result:</h2>
+                <textarea id="result-json" readonly></textarea><!--results from /roll-->
+                <button id="reroll-btn" style="display:none;">Reroll</button>
+            </div>
+            <div id="result-df">
+                <h2>Result-Table:</h2>
+            <!-- Placeholder Table for UX-->
+                <div id="result-table">
+                    <table>
+                        <tr>
+                            <th>Result</th>
+                        </tr>
+                        <tr>
+                            <td>Result</td>
+                        </tr>
+                    </table>
+            <!-- Results from roll-df placed here -->
                 </div>
             </div>
         </div>
 
-            <div class="main">
-                <div id="result-container">
-                    <h2>Result:</h2>
-                    <textarea id="result-json" readonly></textarea><!--results from /roll-->
-                    <button id="reroll-btn" style="display:none;">Reroll</button>
-                </div>
-                <div id="result-df" style="margin-top:100px;">
-                    <h2>Result-Table:</h2>
-                <!-- Placeholder Table for UX-->
-                    <div id="result-table">
-                        <table>
-                            <tr>
-                                <th>Result</th>
-                            </tr>
-                            <tr>
-                                <td>Result</td>
-                            </tr>
-                        </table>
-                <!-- Results from roll-df placed here -->
-                    </div>
-                </div>
+        <div class="aside-2">
+            <div class="dice-1">
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
             </div>
-
-            <div class="aside-2">
-                <div class="child1">
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                </div>
-                <div class="child2">
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                    <span class="dice"></span> <span class="dice"></span>
-                </div>
+            <div class="dice-2">
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
+                <span class="dice"></span> <span class="dice"></span>
             </div>
         </div>
+    </div>
 
-        <div class="footer">
-            (YATTG is not associated with Wizards of the Coast or any other Dungeons and Dragons affiliates.)
-        </div>
+    <div class="footer">
+        (YATTG is not associated with Wizards of the Coast or any other Dungeons and Dragons affiliates.)
     </div>
 
     <script>

@@ -8,12 +8,17 @@ body {
     background-size: 8px;
 }
 
-    h6 {
-        text-align: center;
-        padding: 2px;
-        margin-bottom: 5px;
-        font-size: 32px;
-    }
+h2 {
+    margin-top: 12px;
+    margin-left: 5%;
+}
+
+h6 {
+    text-align: center;
+    padding: 2px;
+    margin-bottom: 5px;
+    font-size: 32px;
+}
 
 li {
     list-style: none;
@@ -25,9 +30,9 @@ ul {
 }
 
 button {
-    margin: 1px;
+    margin: 3px;
     margin-left: 10%;
-    padding: 5px 5px;
+    padding: 10px 15px;
     font-size: 14px;
     cursor: pointer;
     background-color: Grey;
@@ -38,7 +43,7 @@ button {
 
 .category-button {
     margin: 1px;
-    margin-left: 10%;
+    /*margin-left: 10%;*/
     padding: 5px 5px;
     font-size: 16px;
     cursor: pointer;
@@ -53,7 +58,6 @@ button:hover {
 }
 
 table {
-    /*margin: 100px 10px;*/
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -73,17 +77,8 @@ td, th {
     padding: 8px;
 }
 
-/* Removed to keep tables consistent, change later*/
-/*tr:nth-child(even) {
-    background-color: LightGrey;
-}*/
 
-.wrapper {
-    display: flex;
-    /*flex-direction: column;*/
-    min-height: 100vh;
-}
-
+/* ------------------------HEADER--------------------------*/
 .header {
     text-align: center;
     padding: 0px;
@@ -109,16 +104,17 @@ details[open] summary {
     color: white;
 }
 
+/*-------------------------CONTENT-----------------------*/
 .content {
     display: flex;
     flex: 1;
     padding: 10px;
-    box-sizing: border-box;
 }
 
 .aside-1 {
     flex: 1;
     padding: 10px;
+    text-align: left;
 }
 
 .aside-2 {
@@ -127,14 +123,25 @@ details[open] summary {
     padding: 10px;
 }
 
+.main {
+    flex: 2;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /*position: relative;*/
+    max-width: 1000px;
+}
+
+/*------------------------------CATEGORIES---------------------*/
 #category-list {
     max-height: 450px;
     overflow-y: scroll;
     padding-left: 0;
-    margin-left: 0;
+    margin-left: 10%;
     margin-right: 10%;
     list-style-type: none;
-    max-width: 75%;
+    max-width: 80%;
 }
 
 #category-list::-webkit-scrollbar {
@@ -152,27 +159,7 @@ details[open] summary {
     background-color: grey;
 }
 
-.child1 {
-    text-align: top;
-}
-
-.child2 {
-}
-
-.aside-1 {
-    text-align: left;
-}
-
-.main {
-    flex: 2;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: relative;
-    max-width: 1000px;
-}
-
+/*--------------------------RESULTS---------------------*/
 #result-container {
     width: 80%;
     max-width: 1000px;
@@ -184,7 +171,13 @@ details[open] summary {
     height: 275px;
     font-size: 16px;
     padding: 10px;
-    resize: none;
+
+    /*allows result box to resize*/
+    /*resize: none;*/
+}
+
+#result-df {
+    margin-top:100px;
 }
 
 #reroll-btn {
@@ -205,13 +198,7 @@ details[open] summary {
     background-color: Navy;
 }
 
-.aside-2 {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    text-align: right;
-}
-
+/*-----------------------DICE------------------------*/
 .dice {
     font-size: 100px;
     font-weight: 800;
@@ -224,6 +211,14 @@ details[open] summary {
     animation: rolling 6s linear infinite;
 }
 
+.dice-1 {
+    text-align: top;
+}
+
+.dice-2 {
+
+}
+
 @keyframes rolling {
     0% { content: '\2680'; }
     16.7% { content: '\2681'; }
@@ -234,6 +229,7 @@ details[open] summary {
     100% { content: '\2685'; }
 }
 
+/*--------------------------FOOTER--------------------------*/
 .footer {
     font-weight: bold;
     font-size: 24px;
@@ -241,8 +237,15 @@ details[open] summary {
     padding: 10px;
 }
 
-@media (max-width: 1200px){
+/*------------------------MEDIUM SCREEN SIZES----------------------*/
+@media (max-width: 1400px){
     .content {
+
+    }
+
+    .aside-1 {
+        text-align: left;
+        padding: 0px;
         max-width: 300px;
     }
 
@@ -250,10 +253,16 @@ details[open] summary {
         display: none;
     }
 
-    .aside-1 {
-        text-align: left;
-        padding: 0px;
-        max-width: 300px;
+    button {
+        margin: 1px;
+        margin-left: 10%;
+        padding: 5px 5px;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: Grey;
+        color: White;
+        border: none;
+        border-radius: 3px;
     }
 
     .main {
@@ -268,21 +277,16 @@ details[open] summary {
     }
 }
 
+/*------------------------PHONE SCREEN SIZES----------------------*/
 @media (max-width: 800px) {
     .content {
-        margin-left: 10%;
-    }
-
-    .wrapper {
         flex-direction: column;
-    }
-
-    .content {
-        flex-direction: column;
+        justify-content: center;
     }
 
     .aside-1 {
         text-align: center;
+        justify-content: center;
         padding: 0px;
     }
 
@@ -298,7 +302,8 @@ details[open] summary {
     }
 
     .main {
-        order: 1;
+        justify-content: center;
+        margin-right: 3%;
     }
 
     .footer {
@@ -340,12 +345,13 @@ details[open] summary {
       border-radius: 3px;
     }
 
+    #category-container {
+
+    }
+
     #category-list {
-        margin-left: 0px;
-        margin-right: 10%;
-        padding-left: 0px;
+    /*allows the category list to scroll well*/
         max-height: 200px;
-        max-width: 100%;
     }
 
     #result-container {
@@ -357,6 +363,8 @@ details[open] summary {
     #result-json {
         font-size: 14px;
         padding: 3px;
+        /*allows result box to resize*/
+        resize: none;
     }
 
     #reroll-btn {
