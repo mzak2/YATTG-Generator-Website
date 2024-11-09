@@ -21,7 +21,7 @@ def MainMenu(session):
                 print(f"\"{subcategory['id']}\": \"{subcategory['name'].lower()}\"")"""
 
 def MainMenu(session):
-    sql_query = text("SELECT * FROM categories ORDER BY category_id")
+    sql_query = text("SELECT * FROM categories ORDER BY category_name") #was "category_id"
     categories = pd.read_sql_query(sql_query, session.bind)
 
     menu = []
@@ -30,7 +30,7 @@ def MainMenu(session):
         category_id = category["category_id"]
         category_name = category["category_name"]
 
-        subcat_query = text(f"SELECT * FROM sub_categories WHERE category_id = {category_id} ORDER BY id")
+        subcat_query = text(f"SELECT * FROM sub_categories WHERE category_id = {category_id} ORDER BY name") #name was "id"
         subcategories = pd.read_sql_query(subcat_query, session.bind)
 
         subcategory_list = subcategories.to_dict(orient='records') if not subcategories.empty else []
