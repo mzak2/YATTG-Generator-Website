@@ -39,6 +39,7 @@ button {
     color: White;
     border: none;
     border-radius: 3px;
+    width: 75%;
 }
 
 .category-button {
@@ -112,14 +113,13 @@ details[open] summary {
 }
 
 .aside-1 {
-    flex: 1;
+    flex: 0 0 20%;
     padding: 10px;
     text-align: left;
 }
 
 .aside-2 {
-    flex: 1;
-    flex-direction: reverse-column;
+    flex: 0 0 20%;
     padding: 10px;
 }
 
@@ -130,7 +130,6 @@ details[open] summary {
     flex-direction: column;
     justify-content: flex-start;
     /*position: relative;*/
-    max-width: 1000px;
 }
 
 /*------------------------------CATEGORIES---------------------*/
@@ -162,12 +161,10 @@ details[open] summary {
 /*--------------------------RESULTS---------------------*/
 #result-container {
     width: 80%;
-    max-width: 1000px;
 }
 
 #result-json {
     width: 100%;
-    max-width: 1000px;
     height: 275px;
     font-size: 16px;
     padding: 10px;
@@ -231,6 +228,8 @@ details[open] summary {
 
 /*--------------------------FOOTER--------------------------*/
 .footer {
+    display: flex;
+    flex-direction: column;
     font-weight: bold;
     font-size: 24px;
     text-align: center;
@@ -249,6 +248,7 @@ details[open] summary {
         max-width: 300px;
     }
 
+
     .aside-2, #result-df {
         display: none;
     }
@@ -266,19 +266,28 @@ details[open] summary {
     }
 
     .main {
-        order: 1;
-        max-width: 500px;
+
     }
 
     #result-container {
         margin-top: 0px;
-        width: 100%;
-        max-width: 500px;
+        width: 90%;
     }
 }
 
 /*------------------------PHONE SCREEN SIZES----------------------*/
 @media (max-width: 800px) {
+    h6 {
+        text-align: center;
+        padding: 2px;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    ul {
+      padding-left: 0%;
+    }
+
     .content {
         flex-direction: column;
         justify-content: center;
@@ -288,22 +297,17 @@ details[open] summary {
         text-align: center;
         justify-content: center;
         padding: 0px;
+        max-width: 100%;
     }
 
     .aside-2 {
         display: none;
     }
 
-    h6 {
-        text-align: center;
-        padding: 2px;
-        margin-bottom: 5px;
-        font-size: 14px;
-    }
-
     .main {
         justify-content: center;
-        margin-right: 3%;
+        /*only seems to work properly on test browser*/
+        /*margin-right: 3%;*/
     }
 
     .footer {
@@ -357,7 +361,6 @@ details[open] summary {
     #result-container {
         margin-top: 0px;
         width: 100%;
-        max-width: 330px;
     }
 
     #result-json {
