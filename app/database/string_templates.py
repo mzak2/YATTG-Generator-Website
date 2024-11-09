@@ -41,13 +41,6 @@ def bookString(df):
 def characterString(df):
     row = df.iloc[0]
 
-    if row['table'] == 'adventurer':
-        row['table'] = 'Adventurer'
-    elif row['table'] == 'npcs':
-        row['table'] = 'NPC'
-    elif row['table'] == 'bbegs':
-        row['table'] = 'BBEG'
-
     result_str = (
         f"Before you is a/an:\n---{row['table']} and a/an {row['occupation']}\n" +
         f"---Male-Name: {row['male']} ---Female-Name: {row['female']} ---Last-Name: {row['last_name']}\n" +

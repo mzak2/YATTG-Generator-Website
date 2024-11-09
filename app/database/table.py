@@ -75,16 +75,10 @@ def rollCharacters(session, table):
         male = rollTable(session, "names_male")
         female = rollTable(session, "names_female")
         last_name = rollTable(session, "names_last")
-
-        if table == "wizards":
-            wizard = rollTable(session, "wizards")
-            table = f"Wizard {wizard.iloc[0, 1]}s"
-        elif table == "priests":
-            priest = rollTable(session, "priests")
-            table = f"Priest {priest.iloc[0, 1]}s"
+        table = rollTable(session, table)
 
         result_df = pd.DataFrame({
-            "table": table[:-1],
+            "table": [table.iloc[0, 1]],
             "speech_spd": [speech_spd.iloc[0, 1]],
             "speech_type": [speech_type.iloc[0, 1]],
             "race": [race.iloc[0, 1]],
