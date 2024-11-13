@@ -4,3 +4,6 @@ pandas
 psycopg2-binary
 sqlalchemy
 sqlalchemy.orm
+fastapi
+uvicorn
+jinja2

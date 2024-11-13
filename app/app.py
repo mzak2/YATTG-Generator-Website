@@ -3,50 +3,53 @@ import warnings
 warnings.simplefilter(action='ignore', category=DeprecationWarning)
 import pandas as pd
 import os
-import psycopg2 # for some reason isn't imported for SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from flask import Flask, render_template, jsonify, request
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import JSONResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from database.menu import MainMenu
 from database.table import getEnumDF
 from database.string_templates import townEventString, magicItemString, potionsString, civilizationString, \
     wildernessString, characterString, blessingOrCurseString, setbackString, criticalString, bookString, \
     divinationString, dungeonRmTypeString, shopString
 
-#TODO add Shops to civilization architecture/building materials
-#TODO add traps to Dungeons
-#TODO add scroll bar to move categories down and up with the screen
-#TODO make textbox the right size for all text
-#TODO make textbox float as you scroll down page
-#TODO fix coloring/CSS
-#TODO fix CSV files and figure out storage
-#TODO make it an executable that instantly launches to web page
-#TODO consider cloud refactor
+# Initialize FastAPI
+app = FastAPI()
 
-app = Flask(__name__)
+# create directories for index.html and css stylesheet
+templates = Jinja2Templates(directory="./templates")
+app.mount("/static", StaticFiles(directory="./static"), name="static")
+
 
 # ------------Start Program
-db_url = os.environ.get('DB_URL') #connects to the docker version for deployment
-#db_url = os.environ.get('db_url') #used for local testing, use other for docker
+db_url = os.environ.get('DB_URL')  # connects to the docker version for deployment
+#db_url = os.environ.get('db_url') # used for local testing, use other for docker
 engine = create_engine(f"{db_url}")
 Session = sessionmaker(bind=engine)
-session = Session()
 
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    session.close()
 
-@app.route("/")
-def index():
+def get_session():
+    session = Session()
+    try:
+        yield session
+    finally:
+        session.close()
+
+
+@app.get("/")
+async def index(request: Request):
     session = Session()
     menu = MainMenu(session)
     session.close()
-    return render_template("index.html", menu=menu)
+    return templates.TemplateResponse("index.html", {"request": request, "menu": menu})
 
 
-@app.route("/roll", methods=["POST"])
-def roll():
-    category_id = request.json.get("category_id")
+@app.post("/roll")
+async def roll(request: Request):
+    data = await request.json()
+    category_id = data.get("category_id")
     session = Session()
 
     try:
@@ -74,43 +77,23 @@ def roll():
             result_str = blessingOrCurseString(result_df)
         elif category_id > 0 and category_id < 6 or category_id == 9:
             result_str = civilizationString(result_df)
-        elif category_id >= 6 and category_id <15 and category_id != 9 and category_id != 13:
+        elif category_id >= 6 and category_id < 15 and category_id != 9 and category_id != 13:
             result_str = wildernessString(result_df)
         elif 15 <= category_id <= 22 and category_id != 18 and category_id != 19:
             result_str = characterString(result_df)
         else:
             result_str = result_df.iloc[0, 1] if not result_df.empty else "No result available."
 
-
         result_html = result_df.to_html(classes="table table-bordered")
 
-        return jsonify({"result_string": result_str, "result_df": result_html})
+        return JSONResponse({"result_string": result_str, "result_df": result_html})
 
     except Exception as e:
-        return jsonify({"error": str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
         session.close()
 
 
 if __name__ == "__main__":
-    app.run(debug=False) #dont forget to set to True/False based on debugging
-
-
-# console output for testing
-"""
-MainMenu(session)
-
-while True:
-    try:
-        choice = input("---choose category to roll:\n")
-
-        if choice.lower() == "exit":
-            break
-        else:
-            getEnumTable(session, choice)
-
-    except Exception as e:
-        print(f"Invalid Selection: {e}\n")
-
-
-"""
+    import uvicorn
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
