@@ -9,6 +9,7 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 from database.menu import MainMenu
 from database.table import getEnumDF
 from database.string_templates import townEventString, magicItemString, potionsString, civilizationString, \
@@ -19,9 +20,8 @@ from database.string_templates import townEventString, magicItemString, potionsS
 app = FastAPI()
 
 # create directories for index.html and css stylesheet
-templates = Jinja2Templates(directory="./templates")
-app.mount("/static", StaticFiles(directory="./static"), name="static")
-
+templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
+app.mount("/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static",)
 
 # ------------Start Program
 db_url = os.environ.get('DB_URL')  # connects to the docker version for deployment

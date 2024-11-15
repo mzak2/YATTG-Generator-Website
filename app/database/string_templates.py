@@ -43,11 +43,11 @@ def characterString(df):
 
     result_str = (
         f"Before you is a/an:\n---{row['table']} and a/an {row['occupation']}\n" +
-        f"---Male-Name: {row['male']} ---Female-Name: {row['female']} ---Last-Name: {row['last_name']}\n" +
+        f"---Male-Name: {row['male']}\n---Female-Name: {row['female']}\n---Last-Name: {row['last_name']}\n" +
         f"Who appears to be a/an:\n---{row['skin']} skinned {row['race']}\n" +
         f"Who speaks:\n---{row['speech_spd']} and {row['speech_type']}\n" +
         f"Their Clothing is a/an:\n---{row['clothing_state']} {row['clothing']} and carries a/an {row['items']}\n" +
-        f"Finally they have a/an:\n---{row['quirk']} and a color motif of {row['colors']}"
+        f"Finally they have a/an:\n---{row['quirk']}\nand a color motif of:\n---{row['colors']}"
     )
 
     return result_str
