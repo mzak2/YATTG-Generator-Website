@@ -1,0 +1,58 @@
+-----guide to connecting/creating docker postgres:
+
+create docker image:
+sudo docker run --name pg_4 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=1111 -p 5433:5432 -d postgres
+
+#-----------create Pgadmin4
+1. docker pull dpage/pgadmin4
+2. docker run -p 5050:80 \
+  -e "PGADMIN_DEFAULT_EMAIL=user@domain.com" \
+  -e "PGADMIN_DEFAULT_PASSWORD=SuperSecret" \
+  --name pgadmin \
+  dpage/pgadmin4
+
+3. connect in pgadmin 4: user@domain.com' \ SuperSecret
+name(whatever): pg_4
+server group (whatever): docker_postgres
+connection: localhost #(if that doesnt work then use:
+docker inspect pg_4 | grep IPAddress #and get the IPaddress)
+port: 5433 or 5432
+username: postgres
+pw: 1111
+
+then run your import_dnd_generator_db.py with the csv dump
+
+
+-----guide to make flask app work:
+
+create docker image: cmd on the folder of C:\Users\zakre\Documents\Coding\Python\Pycharm\dnd-generator-flask_docker_test
+
+#use sudo without docker desktop and otherwise ignore sudo
+
+1. sudo docker build -t yattg-image .
+
+2. sudo docker run -d --name yattg_frontend -p 8888:8888 yattg-image
+
+3. sudo docker network create my_network
+
+4. sudo docker network connect my_network pg_4
+
+5. sudo docker network connect my_network yattg_frontend   #(or whatever random name is assigned)
+
+6. make sure both are running on docker desktop
+
+7. start cloudflare: cloudflared tunnel run yattg #(do not use sudo)
+
+-----Remove docker image to redeploy
+1. sudo docker ps #(to find the container name)
+
+2. sudo docker kill CONTAINER_NAME
+
+3. sudo docker rm CONTAINER_NAME
+
+4. sudo docker ps #(check if container is gone and pg_4 is still up)
+
+5. cd to  YATTG_Github
+
+6. go to above docker build instructions
+

@@ -1,0 +1,4 @@
+Tunnel credentials written to /home/squidleader/.cloudflared/d06ab3a4-29a8-4cdb-b3c7-5f6c4a9807ca.json. cloudflared chose this file based on where your origin certificate was found. Keep this file secret. To revoke these credentials, delete the tunnel.
+
+Created tunnel yattg with id d06ab3a4-29a8-4cdb-b3c7-5f6c4a9807ca
+

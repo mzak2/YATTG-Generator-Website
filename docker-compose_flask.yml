@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "127.0.0.1:8888:8888"  # Binding Flask app to localhost only, not exposed externally
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  # Mounting NGINX config
+    depends_on:
+      - app
+    networks:
+      - internal
+    ports: []  # No external port exposure
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate --url http://app:8888
+    environment:
+      - TUNNEL_TOKEN=d06ab3a4-29a8-4cdb-b3c7-5f6c4a9807ca  # Replace with your Cloudflare tunnel token
+    restart: unless-stopped
+    networks:
+      - internal  # Cloudflare Tunnel connects to the internal network
+
+networks:
+  internal:
+    driver: bridge
